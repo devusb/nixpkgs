@@ -28,29 +28,29 @@
 
 let
   # See GNA_VERSION in cmake/dependencies.cmake
-  gna_version = "03.05.00.1906";
+  gna_version = "03.05.00.2116";
   gna = fetchurl {
     url = "https://storage.openvinotoolkit.org/dependencies/gna/gna_${gna_version}.zip";
-    hash = "sha256-SlvobZwCaw4Qr6wqV/x8mddisw49UGq7OjOA+8/icm4=";
+    hash = "sha256-lgNQVncCvaFydqxMBg11JPt8587XhQBL2GHIH/K/4sU=";
   };
 
   tbbbind_version = "2_5";
   tbbbind = fetchurl {
-    url = "https://storage.openvinotoolkit.org/dependencies/thirdparty/linux/tbbbind_${tbbbind_version}_static_lin_v3.tgz";
-    hash = "sha256-053rJiwGmBteLS48WT6fyb5izk/rkd1OZI6SdTZZprM=";
+    url = "https://storage.openvinotoolkit.org/dependencies/thirdparty/linux/tbbbind_${tbbbind_version}_static_lin_v4.tgz";
+    hash = "sha256-Tr8wJGUweV8Gb7lhbmcHxrF756ZdKdNRi1eKdp3VTuo=";
   };
 in
 
 stdenv.mkDerivation rec {
   pname = "openvino";
-  version = "2023.0.0";
+  version = "2023.2.0";
 
   src = fetchFromGitHub {
     owner = "openvinotoolkit";
     repo = "openvino";
     rev = "refs/tags/${version}";
     fetchSubmodules = true;
-    hash = "sha256-z88SgAZ0UX9X7BhBA7/NU/UhVLltb6ANKolruU8YiZQ=";
+    hash = "sha256-zF8MCIi16RqF1Z14iMtnQdHz5rOLhWYfzO9YTUUoE7s=";
   };
 
   outputs = [
@@ -75,12 +75,12 @@ stdenv.mkDerivation rec {
     cudaPackages.cuda_nvcc
   ];
 
-  patches = [
-    (substituteAll {
-      src = ./cmake.patch;
-      inherit (lib) version;
-    })
-  ];
+  # patches = [
+  #   (substituteAll {
+  #     src = ./cmake.patch;
+  #     inherit (lib) version;
+  #   })
+  # ];
 
   postPatch = ''
     mkdir -p temp/gna_${gna_version}
@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
     "-DENABLE_CPPLINT:BOOL=OFF"
     "-DBUILD_TESTING:BOOL=OFF"
     "-DENABLE_SAMPLES:BOOL=OFF"
-    (lib.cmakeBool "CMAKE_VERBOSE_MAKEFILE" true)
+    "-DCMAKE_VERBOSE_MAKEFILE=ON"
   ];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isAarch64 "-Wno-narrowing";
