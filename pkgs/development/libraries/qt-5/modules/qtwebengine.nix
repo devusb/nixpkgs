@@ -157,6 +157,25 @@ qtModule (
         stripLen = 1;
         extraPrefix = "src/3rdparty/";
       })
+
+      # The latest version of Clang changed what macros it predefines on Apple
+      # targets, causing errors about predefined macros in zlib.
+      (fetchpatch {
+        url = "https://github.com/chromium/chromium/commit/2f39ac8d0a414dd65c0e1d5aae38c8f97aa06ae9.patch";
+        stripLen = 1;
+        extraPrefix = "src/3rdparty/chromium/";
+        hash = "sha256-07hWANY9JGFmqvjdOD6SFmVI6sQRRyvW+7wxGZF5GVo=";
+      })
+
+      # The latest version of Clang changed what macros it predefines on Apple
+      # targets, causing errors about predefined macros in libpng.
+      (fetchpatch {
+        url = "https://github.com/chromium/chromium/commit/66defc14abe47c0494da9faebebfa0a5b6efcf38.patch";
+        stripLen = 1;
+        extraPrefix = "src/3rdparty/chromium/";
+        hash = "sha256-FWIi1VsBZFqOoPIkPxPkcfexPkx1458rB5ldtA7T2uE=";
+      })
+
     ];
 
     postPatch =
@@ -244,6 +263,7 @@ qtModule (
             # https://trac.macports.org/ticket/70850
             "-Wno-enum-constexpr-conversion"
             "-Wno-unused-but-set-variable"
+            "-Wno-missing-template-arg-list-after-template-kw"
           ]
         );
       }
