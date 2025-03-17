@@ -94,6 +94,7 @@ stdenv'.mkDerivation rec {
     ]
     ++ lib.optionals cudaSupport [
       autoAddDriverRunpath
+      cudaPackages.cuda_nvcc
     ];
 
   buildInputs =
@@ -139,7 +140,6 @@ stdenv'.mkDerivation rec {
       nlohmann_json
     ]
     ++ lib.optionals cudaSupport [
-      cudaPackages.cudatoolkit
       cudaPackages.cuda_cudart
     ]
     ++ lib.optionals stdenv.hostPlatform.isx86_64 [
