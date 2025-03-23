@@ -10,7 +10,7 @@
 }:
 
 let
-  version = "0.2.0";
+  version = "0.2.1";
 in
 buildGoModule {
   pname = "owncast";
@@ -18,8 +18,8 @@ buildGoModule {
   src = fetchFromGitHub {
     owner = "owncast";
     repo = "owncast";
-    rev = "v${version}";
-    hash = "sha256-MdquhDdbOdP1shnKHBlzQrSDe41fp0qnMzgaqL89jTk=";
+    tag = "v${version}";
+    hash = "sha256-9Fbu0zm8TBNVU2TOSFyDP2TIfDLdNdEIcAu24PqF7lM=";
   };
   vendorHash = "sha256-ERilQZ8vnhGW1IEcLA4CcmozDooHKbnmASMw87tjYD4=";
 
