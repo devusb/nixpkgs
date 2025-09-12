@@ -104,7 +104,7 @@ let
       noisetorch = linux;
       obs-studio-plugins.obs-backgroundremoval = linux;
       octave = linux; # because depend on SuiteSparse which need rebuild when cuda enabled
-      ollama = linux;
+      ollama-cuda = linux;
       onnxruntime = linux;
       openmvg = linux;
       openmvs = linux;
